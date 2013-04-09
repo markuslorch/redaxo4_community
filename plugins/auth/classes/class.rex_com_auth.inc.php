@@ -220,9 +220,9 @@ class rex_com_auth
                   // else -> use auth function
                       // on success -> sync to community dbase and do login
         
-        ## Hash password if required and not already hashed (javascript
+        ## Hash password if activated
         if($REX['ADDON']['community']['plugin_auth']['passwd_hashed'])
-          $REX['COM_USER']->setPasswordFunction($REX['ADDON']['community']['plugin_auth']['passwd_algorithmus']));
+          $REX['COM_USER']->setPasswordFunction($REX['ADDON']['community']['plugin_auth']['passwd_algorithmus']);
         
         $REX['COM_USER']->setLogin($login_name,$login_psw);
         $REX['COM_USER']->setLoginquery('select * from rex_com_user where `'.$REX['ADDON']['community']['plugin_auth']['login_field'].'`="USR_LOGIN" and password="USR_PSW" '.$query_extras);
@@ -230,7 +230,7 @@ class rex_com_auth
       }elseif($session_key && !isset($_SESSION[$login_key])) //if cookie available
       {
         $REX['COM_USER']->setLogin('dummy','dummy');
-        $REX['COM_USER']->setLoginquery('select * from rex_com_user where session_key="'.$session_key.'" and session_key not "" '.$query_extras);
+        $REX['COM_USER']->setLoginquery('select * from rex_com_user where session_key="'.$session_key.'" and (session_key != "" and session_key is not NULL) '.$query_extras);
       }
     
       ## --- CHECK LOGIN ---
