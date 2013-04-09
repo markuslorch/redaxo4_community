@@ -8,11 +8,7 @@
  */
 
 $mypage = "auth";
-<<<<<<< HEAD
-$REX['ADDON']['version'][$mypage] = '2.9.1';
-=======
 $REX['ADDON']['version'][$mypage] = '2.9.6';
->>>>>>> 6710d27a42d7444bc9498b31715d442111838697
 $REX['ADDON']['author'][$mypage] = 'Jan Kristinus';
 $REX['ADDON']['supportpage'][$mypage] = 'www.yakamara.de/tag/redaxo/';
 
@@ -60,25 +56,7 @@ if($REX["REDAXO"]) {
   }
 }
 
-<<<<<<< HEAD
-if($REX['ADDON']['community']['plugin_auth']['auth_active'] == 1)
-{
-  if(!$REX["REDAXO"])
-  {
-       
-    rex_register_extension('ADDONS_INCLUDED', 'rex_com_auth_config');
-    rex_register_extension('REXSEO_POST_INIT', 'rex_com_auth_config');
-    
-    function rex_com_auth_config($params)
-    {
-	  global $REX, $I18N;
-	  
-	  if(!OOAddon::isAvailable('rexseo') || version_compare(OOAddon::getVersion('rexseo'), '1.5', '<'))
-	    include $REX["INCLUDE_PATH"]."/addons/community/plugins/auth/inc/auth.php";
-	  elseif($params['extension_point'] == 'REXSEO_POST_INIT')
-	    include $REX["INCLUDE_PATH"]."/addons/community/plugins/auth/inc/auth.php";
-	}
-=======
+
 if($REX['ADDON']['community']['plugin_auth']['auth_active'] == 1) {
   if(!$REX["REDAXO"]) {
        
@@ -94,7 +72,6 @@ if($REX['ADDON']['community']['plugin_auth']['auth_active'] == 1) {
   	    include $REX["INCLUDE_PATH"]."/addons/community/plugins/auth/inc/auth.php";
   	  }
   	}
->>>>>>> 6710d27a42d7444bc9498b31715d442111838697
     
   }
 }
