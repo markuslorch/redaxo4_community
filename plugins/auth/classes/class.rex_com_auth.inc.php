@@ -2,7 +2,27 @@
 
 class rex_com_auth
 {
- 
+  
+    /**
+     * Retruns the Article Permtype rekursive
+     * @param OOArticle $obj
+     * @return int
+     */
+    function getPermType($obj)
+    {
+      $permtype = (int) $obj->getValue('art_com_permtype');
+      
+      if($permtype != 1 && $permtype != 2)
+      {
+        if ($o = $obj->getParent())
+          return self::getPermType($o);
+        	
+        return 3;
+      }
+      
+      return $permtype;
+    }
+  
     /*
      * return Article right rekursive
      * 0:translate:com_perm_extends|1:translate:com_perm_only_logged_in|2:translate:com_perm_only_not_logged_in|3:translate:com_perm_all
@@ -201,9 +221,8 @@ class rex_com_auth
                       // on success -> sync to community dbase and do login
         
         ## Hash password if required and not already hashed (javascript
-        $hash_func = $REX['ADDON']['community']['plugin_auth']['passwd_algorithmus'];
-        if($REX['ADDON']['community']['plugin_auth']['passwd_hashed'] && strlen($login_psw) != strlen(hash($hash_func,"xyz")))
-          $REX['COM_USER']->setPasswordFunction($hash_func);
+        if($REX['ADDON']['community']['plugin_auth']['passwd_hashed'])
+          $REX['COM_USER']->setPasswordFunction($REX['ADDON']['community']['plugin_auth']['passwd_algorithmus']));
         
         $REX['COM_USER']->setLogin($login_name,$login_psw);
         $REX['COM_USER']->setLoginquery('select * from rex_com_user where `'.$REX['ADDON']['community']['plugin_auth']['login_field'].'`="USR_LOGIN" and password="USR_PSW" '.$query_extras);
